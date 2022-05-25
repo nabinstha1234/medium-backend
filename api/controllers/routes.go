@@ -12,5 +12,9 @@ func (s *Server) initializeRoutes() {
 		v1.PUT("/avatar/users/:id", s.UpdateAvatar)
 		v1.DELETE("/users/:id", s.DeleteUser)
 
+		// Reset password:
+		v1.POST("/password/forgot", s.ForgotPassword)
+		v1.POST("/password/reset", s.ResetPassword)
+
 	}
 }
