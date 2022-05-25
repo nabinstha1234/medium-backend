@@ -1,16 +1,18 @@
 package controllers
 
+import "medium-clone-backend/api/middlewares"
+
 func (s *Server) initializeRoutes() {
 
 	v1 := s.Router.Group("/api/v1")
 	{
 		//Users routes
-		v1.POST("/users", s.CreateUser)
-		v1.GET("/users", s.GetUsers)
-		v1.GET("/users/:id", s.GetUser)
-		v1.PUT("/users/:id", s.UpdateUser)
-		v1.PUT("/avatar/users/:id", s.UpdateAvatar)
-		v1.DELETE("/users/:id", s.DeleteUser)
+		v1.POST("/users", middlewares.TokenAuthMiddleware(), s.CreateUser)
+		v1.GET("/users", middlewares.TokenAuthMiddleware(), s.GetUsers)
+		v1.GET("/users/:id", middlewares.TokenAuthMiddleware(), s.GetUser)
+		v1.PUT("/users/:id", middlewares.TokenAuthMiddleware(), s.UpdateUser)
+		v1.PUT("/avatar/users/:id", middlewares.TokenAuthMiddleware(), s.UpdateAvatar)
+		v1.DELETE("/users/:id", middlewares.TokenAuthMiddleware(), s.DeleteUser)
 
 		// Reset password:
 		v1.POST("/password/forgot", s.ForgotPassword)
