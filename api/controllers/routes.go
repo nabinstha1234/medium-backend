@@ -16,5 +16,8 @@ func (s *Server) initializeRoutes() {
 		v1.POST("/password/forgot", s.ForgotPassword)
 		v1.POST("/password/reset", s.ResetPassword)
 
+		// Login Route
+		v1.POST("/login", s.Login)
+
 	}
 }
