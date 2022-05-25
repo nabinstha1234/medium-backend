@@ -92,6 +92,7 @@ func (server *Server) GetUsers(c *gin.Context) {
 		})
 		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"status":   http.StatusOK,
 		"response": users,

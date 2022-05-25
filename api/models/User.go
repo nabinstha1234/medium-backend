@@ -134,7 +134,7 @@ func (u *User) SaveUser(db *gorm.DB) (*User, error) {
 func (u *User) FindAllUsers(db *gorm.DB) (*[]User, error) {
 	var err error
 	users := []User{}
-	err = db.Debug().Model(&User{}).Limit(100).Find(&users).Error
+	err = db.Debug().Model(&User{}).Select("id,username,email,avatar_path,created_at,updated_at").Limit(100).Find(&users).Error
 	if err != nil {
 		return &[]User{}, err
 	}
@@ -150,6 +150,7 @@ func (u *User) FindUserByID(db *gorm.DB, uid uint32) (*User, error) {
 	if gorm.IsRecordNotFoundError(err) {
 		return &User{}, errors.New("User Not Found")
 	}
+	u.Password = ""
 	return u, err
 }
 
